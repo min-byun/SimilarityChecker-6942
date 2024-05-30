@@ -15,3 +15,14 @@ TEST(SimilarityCheckerTest, LegnthSameTest) {
 
 	EXPECT_EQ(expect, similarity);
 }
+
+TEST(SimilarityCheckerTest, Legnth2xDiffTest) {
+	SimilarityChecker similarityChecker;
+	string str_A = "ABC";
+	string str_B = "BLTABC";
+
+	int expect = 0;
+	int similarity = similarityChecker.checkLength(str_A, str_B);
+
+	EXPECT_EQ(expect, similarity);
+}
