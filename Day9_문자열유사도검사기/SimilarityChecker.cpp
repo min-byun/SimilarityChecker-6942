@@ -5,15 +5,10 @@ using namespace std;
 class SimilarityChecker {
 public:
 	int checkLength(string str_A, string str_B) {
-
 		calcLength(str_A, str_B);
 		calcMinMaxLength();
-
-		if (checkSameLength())
-			return MAX_SCORE;
-		if (check2xDiffLengh())
-			return MIN_SCORE;
-
+		if (checkSameLength()) return MAX_SCORE;
+		if (check2xDiffLengh())return MIN_SCORE;
 		return calculateSocre();
 	}
 private:
