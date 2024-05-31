@@ -5,7 +5,7 @@
 
 using namespace std;
 
-class SimilarityChecker {
+class SimilarityLength {
 public:
 	int checkLength(string str_A, string str_B) {
 		calcLength(str_A, str_B);
@@ -14,17 +14,8 @@ public:
 		if (check2xDiffLengh())return MIN_SCORE;
 		return calculateSocre();
 	}
-
-	int checkAlphabet(string str_A, string str_B) {
-		cntAlphabetStr.resize(ALPHA_CNT);
-		cntAlphabetStrA = countAlphabetStr(str_A);
-		cntAlphabetStrB = countAlphabetStr(str_B);
-
-		return getAlphabetScore();
-	}
 private:
 	const int MAX_SCORE_LENGTH = 60;
-	const int MAX_SCORE_ALPHABET = 40;
 	const int MIN_SCORE = 0;
 
 	int len_A = 0;
@@ -53,10 +44,24 @@ private:
 	int calculateSocre() {
 		return (1 - (double)(len_max - len_min) / len_min) * MAX_SCORE_LENGTH;
 	}
+};
 
+class SimilarityAlphabet {
+public:
+	int checkAlphabet(string str_A, string str_B) {
+		cntAlphabetStr.resize(ALPHA_CNT);
+		cntAlphabetStrA = countAlphabetStr(str_A);
+		cntAlphabetStrB = countAlphabetStr(str_B);
+
+		return getAlphabetScore();
+	}
+
+private:
 	vector<bool> cntAlphabetStrA;
 	vector<bool> cntAlphabetStrB;
 	vector<bool> cntAlphabetStr;
+
+	const int MAX_SCORE_ALPHABET = 40;
 
 	vector<bool> countAlphabetStr(string str) {
 		vector<bool> cnt;
@@ -81,4 +86,14 @@ private:
 
 		return (sameCnt * MAX_SCORE_ALPHABET) / totalCnt;
 	}
+};
+
+class SimilarityChecker {
+public:
+	int getScore(string str_A, string str_B) {
+		return sLength.checkLength(str_A, str_B) + sAlphabet.checkAlphabet(str_A, str_B);
+	}
+private:
+	SimilarityLength sLength;
+	SimilarityAlphabet sAlphabet;
 };
