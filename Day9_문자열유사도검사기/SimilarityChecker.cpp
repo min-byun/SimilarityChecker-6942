@@ -5,13 +5,11 @@ using namespace std;
 class SimilarityChecker {
 public:
 	int checkLength(string str_A, string str_B) {
-		len_A = str_A.size();
-		len_B = str_B.size();
 
-		len_min = min(len_A,len_B);
-		len_max = max(len_A,len_B);
+		calcLength(str_A, str_B);
+		calcMinMaxLength();
 
-		if (checkSameLength(len_A,len_B))
+		if (checkSameLength())
 			return MAX_SCORE;
 		if (check2xDiffLengh())
 			return MIN_SCORE;
@@ -26,7 +24,17 @@ private:
 	int len_min = 0;
 	int len_max = 0;
 
-	bool checkSameLength(int len_A, int len_B) {
+	void calcLength(string str_A, string str_B) {
+		len_A = str_A.size();
+		len_B = str_B.size();
+	}
+
+	void calcMinMaxLength() {
+		len_min = min(len_A, len_B);
+		len_max = max(len_A, len_B);
+	}
+
+	bool checkSameLength() {
 		return (len_A == len_B);
 	}
 
