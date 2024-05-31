@@ -16,12 +16,45 @@ TEST(SimilarityCheckerTest, LegnthSameTest) {
 	EXPECT_EQ(expect, similarity);
 }
 
-TEST(SimilarityCheckerTest, Legnth2xDiffTest) {
+TEST(SimilarityCheckerTest, Legnth2xDiffTest1) {
 	SimilarityChecker similarityChecker;
 	string str_A = "ABC";
 	string str_B = "BLTABC";
 
 	int expect = 0;
+	int similarity = similarityChecker.checkLength(str_A, str_B);
+
+	EXPECT_EQ(expect, similarity);
+}
+
+TEST(SimilarityCheckerTest, Legnth2xDiffTest2) {
+	SimilarityChecker similarityChecker;
+	string str_A = "A";
+	string str_B = "BLTABC";
+
+	int expect = 0;
+	int similarity = similarityChecker.checkLength(str_A, str_B);
+
+	EXPECT_EQ(expect, similarity);
+}
+
+TEST(SimilarityCheckerTest, LegnthSimilarityTest1) {
+	SimilarityChecker similarityChecker;
+	string str_A = "ABCD";
+	string str_B = "BLTABC";
+
+	int expect = 30;
+	int similarity = similarityChecker.checkLength(str_A, str_B);
+
+	EXPECT_EQ(expect, similarity);
+}
+
+TEST(SimilarityCheckerTest, LegnthSimilarityTest2) {
+	SimilarityChecker similarityChecker;
+	string str_A = "AAABB";
+	string str_B = "BAA";
+
+	int expect = 20;
 	int similarity = similarityChecker.checkLength(str_A, str_B);
 
 	EXPECT_EQ(expect, similarity);
