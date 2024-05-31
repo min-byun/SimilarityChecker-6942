@@ -73,3 +73,39 @@ TEST_F(SimilarityCheckerFixtrue, AlphabetSameTest3) {
 
 	EXPECT_EQ(40, similarityChecker.checkAlphabet(str_A, str_B));
 }
+
+TEST_F(SimilarityCheckerFixtrue, AlphabetTotallyDiffTest1) {
+	string str_A = "ABC";
+	string str_B = "DEF";
+
+	EXPECT_EQ(0, similarityChecker.checkAlphabet(str_A, str_B));
+}
+
+TEST_F(SimilarityCheckerFixtrue, AlphabetTotallyDiffTest2) {
+	string str_A = "ABC";
+	string str_B = "ZZZZZZ";
+
+	EXPECT_EQ(0, similarityChecker.checkAlphabet(str_A, str_B));
+}
+
+TEST_F(SimilarityCheckerFixtrue, AlphabetDiffTest1) {
+	string str_A = "ABC";
+	string str_B = "ABD";
+
+	EXPECT_EQ(20, similarityChecker.checkAlphabet(str_A, str_B));
+}
+
+TEST_F(SimilarityCheckerFixtrue, AlphabetDiffTest2) {
+	string str_A = "ABC";
+	string str_B = "BBBB";
+
+	EXPECT_EQ(13, similarityChecker.checkAlphabet(str_A, str_B));
+}
+
+TEST_F(SimilarityCheckerFixtrue, AlphabetDiffTest3) {
+	string str_A = "AAAAABBBB";
+	string str_B = "AZC";
+
+	EXPECT_EQ(10, similarityChecker.checkAlphabet(str_A, str_B));
+}
+
