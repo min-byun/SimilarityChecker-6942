@@ -1,3 +1,3 @@
-### 문자열유사도검사기
+### String Similarity Checker
 ---
 Similarity Checker TDD
