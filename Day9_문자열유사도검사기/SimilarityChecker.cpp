@@ -16,28 +16,11 @@ public:
 	}
 
 	int checkAlphabet(string str_A, string str_B) {
-		int score = 0;
-		for (auto ch : str_A) {
-			int idx = ch - 'A';
-			cntAlphabetStr[idx] = cntAlphabetStrA[idx] = true;
-		}
-		for (auto ch : str_B) {
-			int idx = ch - 'A';
-			cntAlphabetStr[idx] = cntAlphabetStrB[idx] = true;
-		}
+		cntAlphabetStr.resize(ALPHA_CNT);
+		cntAlphabetStrA = countAlphabetStr(str_A);
+		cntAlphabetStrB = countAlphabetStr(str_B);
 
-
-		int sameCnt = 0;
-		int totalCnt = 0;
-		for (int i = 0; i < ALPHA_CNT; i++) {
-			if (cntAlphabetStr[i] == false) continue;
-			totalCnt++;
-			if (cntAlphabetStrA[i] == cntAlphabetStrB[i])
-				sameCnt++;
-		}
-
-		score = (double)(sameCnt * MAX_SCORE_ALPHABET) / totalCnt;
-		return score;
+		return getAlphabetScore();
 	}
 private:
 	const int MAX_SCORE_LENGTH = 60;
@@ -71,7 +54,31 @@ private:
 		return (1 - (double)(len_max - len_min) / len_min) * MAX_SCORE_LENGTH;
 	}
 
-	bool cntAlphabetStrA[ALPHA_CNT] = { 0, };
-	bool cntAlphabetStrB[ALPHA_CNT] = { 0, };
-	bool cntAlphabetStr[ALPHA_CNT] = { 0, };
+	vector<bool> cntAlphabetStrA;
+	vector<bool> cntAlphabetStrB;
+	vector<bool> cntAlphabetStr;
+
+	vector<bool> countAlphabetStr(string str) {
+		vector<bool> cnt;
+		cnt.resize(ALPHA_CNT);
+
+		for (auto ch : str) {
+			int idx = ch - 'A';
+			cntAlphabetStr[idx] = cnt[idx] = true;
+		}
+		return cnt;
+	}
+
+	int getAlphabetScore() {
+		int sameCnt = 0;
+		int totalCnt = 0;
+		for (int i = 0; i < ALPHA_CNT; i++) {
+			if (cntAlphabetStr[i] == false) continue;
+			totalCnt++;
+			if (cntAlphabetStrA[i] == cntAlphabetStrB[i])
+				sameCnt++;
+		}
+
+		return (sameCnt * MAX_SCORE_ALPHABET) / totalCnt;
+	}
 };
