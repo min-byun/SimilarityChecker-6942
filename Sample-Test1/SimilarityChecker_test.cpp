@@ -59,3 +59,14 @@ TEST(SimilarityCheckerTest, LegnthSimilarityTest2) {
 
 	EXPECT_EQ(expect, similarity);
 }
+
+TEST(SimilarityCheckerTest, LegnthSimilarityTest3) {
+	SimilarityChecker similarityChecker;
+	string str_A = "AA";
+	string str_B = "AAE";
+
+	int expect = 30;
+	int similarity = similarityChecker.checkLength(str_A, str_B);
+
+	EXPECT_EQ(expect, similarity);
+}
