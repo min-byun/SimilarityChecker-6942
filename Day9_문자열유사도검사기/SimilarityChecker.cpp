@@ -1,4 +1,7 @@
 #include <string>
+#include <vector>
+
+#define ALPHA_CNT 26
 
 using namespace std;
 
@@ -7,13 +10,23 @@ public:
 	int checkLength(string str_A, string str_B) {
 		calcLength(str_A, str_B);
 		calcMinMaxLength();
-		if (checkSameLength()) return MAX_SCORE;
+		if (checkSameLength()) return MAX_SCORE_LENGTH;
 		if (check2xDiffLengh())return MIN_SCORE;
 		return calculateSocre();
 	}
+
+	int checkAlphabet(string str_A, string str_B) {
+		cntAlphabetStr.resize(ALPHA_CNT);
+		cntAlphabetStrA = countAlphabetStr(str_A);
+		cntAlphabetStrB = countAlphabetStr(str_B);
+
+		return getAlphabetScore();
+	}
 private:
-	const int MAX_SCORE = 60;
+	const int MAX_SCORE_LENGTH = 60;
+	const int MAX_SCORE_ALPHABET = 40;
 	const int MIN_SCORE = 0;
+
 	int len_A = 0;
 	int len_B = 0;
 	int len_min = 0;
@@ -38,6 +51,34 @@ private:
 	}
 
 	int calculateSocre() {
-		return (1 - (double)(len_max - len_min) / len_min) * MAX_SCORE;
+		return (1 - (double)(len_max - len_min) / len_min) * MAX_SCORE_LENGTH;
+	}
+
+	vector<bool> cntAlphabetStrA;
+	vector<bool> cntAlphabetStrB;
+	vector<bool> cntAlphabetStr;
+
+	vector<bool> countAlphabetStr(string str) {
+		vector<bool> cnt;
+		cnt.resize(ALPHA_CNT);
+
+		for (auto ch : str) {
+			int idx = ch - 'A';
+			cntAlphabetStr[idx] = cnt[idx] = true;
+		}
+		return cnt;
+	}
+
+	int getAlphabetScore() {
+		int sameCnt = 0;
+		int totalCnt = 0;
+		for (int i = 0; i < ALPHA_CNT; i++) {
+			if (cntAlphabetStr[i] == false) continue;
+			totalCnt++;
+			if (cntAlphabetStrA[i] == cntAlphabetStrB[i])
+				sameCnt++;
+		}
+
+		return (sameCnt * MAX_SCORE_ALPHABET) / totalCnt;
 	}
 };
