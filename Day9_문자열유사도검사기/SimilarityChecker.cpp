@@ -5,11 +5,11 @@ using namespace std;
 class SimilarityChecker {
 public:
 	int checkLength(string str_A, string str_B) {
-		int len_A = str_A.size();
-		int len_B = str_B.size();
+		len_A = str_A.size();
+		len_B = str_B.size();
 
-		len_min = (len_A < len_B) ? len_A : len_B;
-		len_max = (len_A < len_B) ? len_B : len_A;
+		len_min = min(len_A,len_B);
+		len_max = max(len_A,len_B);
 
 		if (checkSameLength(len_A,len_B))
 			return MAX_SCORE;
@@ -21,6 +21,8 @@ public:
 private:
 	const int MAX_SCORE = 60;
 	const int MIN_SCORE = 0;
+	int len_A = 0;
+	int len_B = 0;
 	int len_min = 0;
 	int len_max = 0;
 
